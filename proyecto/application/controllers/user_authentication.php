@@ -104,6 +104,7 @@ public function user_login_process()
 				);
 				// Add user data in session
 				$this->session->set_userdata('logged_in', $session_data);
+				redirect('modulo/lista_modulos');
 				$this->load->view('admin_page');
 			}
 		} 

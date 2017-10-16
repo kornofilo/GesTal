@@ -200,17 +200,11 @@ CREATE TABLE `grupos` (
 
 /*!40000 ALTER TABLE `grupos` DISABLE KEYS */;
 INSERT INTO `grupos` (`id`,`nombre_grupo`,`departamento`) VALUES 
- (1,'hla','sd'),
- (2,'operadores','sistemas'),
- (3,'gerentes','sistemas'),
- (4,'secretarias','contabilidad'),
- (5,'bodegueros','bodega'),
- (6,'administradores','sistemas'),
- (7,'operadores','sistemas'),
- (8,'gerentes','sistemas'),
- (9,'secretarias','contabilidad'),
- (10,'bodegueros','bodega'),
- (11,'administradores','sistemas');
+ (1,'operadores','sistemas'),
+ (2,'gerentes','sistemas'),
+ (3,'secretarias','contabilidad'),
+ (4,'bodegueros','bodega'),
+ (5,'administradores','sistemas');
 /*!40000 ALTER TABLE `grupos` ENABLE KEYS */;
 
 
@@ -234,11 +228,30 @@ CREATE TABLE `grupos_modulos` (
 
 /*!40000 ALTER TABLE `grupos_modulos` DISABLE KEYS */;
 INSERT INTO `grupos_modulos` (`id_grupo`,`id_modulo`,`s`,`i`,`u`,`d`) VALUES 
- (6,'1',1,1,1,0),
- (6,'2',1,1,1,1),
- (6,'3',1,1,1,1),
- (6,'4',1,1,1,1),
- (6,'5',1,1,1,1);
+ (5,'1',1,1,1,0),
+ (5,'2',1,1,1,1),
+ (5,'3',1,1,1,1),
+ (5,'4',1,1,1,1),
+ (5,'5',1,1,1,0),
+ (5,'6',1,1,1,0),
+ (2,'1',1,0,0,0),
+ (2,'2',1,0,0,0),
+ (2,'3',1,0,0,0),
+ (2,'4',1,0,0,0),
+ (2,'5',1,0,0,0),
+ (2,'6',1,0,0,0),
+ (3,'1',1,0,0,0),
+ (3,'2',1,0,0,0),
+ (3,'3',1,1,0,0),
+ (3,'4',1,1,0,0),
+ (3,'5',1,1,0,0),
+ (3,'6',1,1,0,0),
+ (4,'1',0,0,0,0),
+ (4,'2',0,0,0,0),
+ (4,'3',0,0,0,0),
+ (4,'4',0,0,0,0),
+ (4,'5',1,0,0,0),
+ (4,'6',0,0,0,0);
 /*!40000 ALTER TABLE `grupos_modulos` ENABLE KEYS */;
 
 
@@ -306,7 +319,10 @@ CREATE TABLE `modulos` (
 INSERT INTO `modulos` (`id`,`descripcion`,`ruta`) VALUES 
  (1,'usuarios','base url'),
  (2,'grupos','base'),
- (3,'modulos','base');
+ (3,'modulos','base'),
+ (4,'metadata','base metadata'),
+ (5,'documentos','basedocumentos'),
+ (6,'imagenes','base imagenes');
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
 

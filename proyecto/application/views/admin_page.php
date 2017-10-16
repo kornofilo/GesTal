@@ -31,6 +31,7 @@ echo "<br/>";
 <br><br>
 
 <a href="<?php echo base_url()."index.php/modulo/lista_modulos" ?> ">ver modulos</a>
+
 <br><br><br><br>
 
 <b id="logout"><a href="logout">Cerrar Sesion</a></b>

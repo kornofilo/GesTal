@@ -29,8 +29,6 @@
 
    <input type="submit" value=" Login " name="submit"/><br />
 
-  <a href="<?php echo base_url() ?>index.php/user_authentication/user_registration_show">Para Registro... Aqui</a>
- <?php echo form_close(); ?>
 
 
 <footer><a href="" target="_blank"><img src="img/doc.png"></a>
