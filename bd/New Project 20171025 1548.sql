@@ -61,6 +61,8 @@ CREATE TABLE `bodega` (
 --
 
 /*!40000 ALTER TABLE `bodega` DISABLE KEYS */;
+INSERT INTO `bodega` (`id_bodega`,`nombre_bodega`,`direccion`) VALUES 
+ (1,'hola','12');
 /*!40000 ALTER TABLE `bodega` ENABLE KEYS */;
 
 
@@ -72,6 +74,8 @@ DROP TABLE IF EXISTS `caja`;
 CREATE TABLE `caja` (
   `id_caja` int(11) NOT NULL auto_increment,
   `nombre_caja` varchar(45) default NULL,
+  `id_de_estante` int(10) unsigned NOT NULL,
+  `id_de_bodega` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id_caja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -152,6 +156,7 @@ DROP TABLE IF EXISTS `estante`;
 CREATE TABLE `estante` (
   `id_estante` int(11) NOT NULL auto_increment,
   `nombre_estante` varchar(45) default NULL,
+  `id_de_bodega` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id_estante`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -171,6 +176,9 @@ DROP TABLE IF EXISTS `folder`;
 CREATE TABLE `folder` (
   `id_folder` int(11) NOT NULL auto_increment,
   `nombre_folder` varchar(45) default NULL,
+  `id_de_estante` int(10) unsigned NOT NULL,
+  `id_de_caja` int(10) unsigned NOT NULL,
+  `id_de_bodega` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id_folder`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -204,7 +212,10 @@ INSERT INTO `grupos` (`id_grupo`,`nombre_grupo`,`departamento`) VALUES
  (2,'gerentes','sistemas'),
  (3,'secretarias','contabilidad'),
  (4,'bodegueros','bodega'),
- (5,'administradores','sistemas');
+ (5,'administradores','sistemas'),
+ (6,'grupo de los todos','gerencia'),
+ (7,'grupo de los nada','antes que nadda'),
+ (8,'as','sd');
 /*!40000 ALTER TABLE `grupos` ENABLE KEYS */;
 
 
@@ -228,7 +239,7 @@ CREATE TABLE `grupos_modulos` (
 
 /*!40000 ALTER TABLE `grupos_modulos` DISABLE KEYS */;
 INSERT INTO `grupos_modulos` (`id_del_grupo`,`id_del_modulo`,`s`,`i`,`u`,`d`) VALUES 
- (5,'1',1,1,1,0),
+ (5,'1',1,1,1,1),
  (5,'2',1,1,1,1),
  (5,'3',1,1,1,1),
  (5,'4',1,1,1,1),
@@ -251,7 +262,37 @@ INSERT INTO `grupos_modulos` (`id_del_grupo`,`id_del_modulo`,`s`,`i`,`u`,`d`) VA
  (4,'3',0,0,0,0),
  (4,'4',0,0,0,0),
  (4,'5',1,0,0,0),
- (4,'6',0,0,0,0);
+ (4,'6',0,0,0,0),
+ (5,'7',1,1,1,0),
+ (2,'7',1,1,1,0),
+ (3,'7',1,1,1,0),
+ (4,'7',1,1,1,0),
+ (6,'1',1,1,1,1),
+ (6,'2',1,1,1,1),
+ (6,'3',1,1,1,1),
+ (6,'4',1,1,1,1),
+ (6,'5',1,1,1,1),
+ (6,'6',1,1,1,1),
+ (6,'7',1,1,1,1),
+ (6,'8',1,1,1,1),
+ (6,'9',1,1,1,1),
+ (7,'1',0,0,0,0),
+ (7,'2',0,0,0,0),
+ (7,'3',0,0,0,0),
+ (7,'4',0,0,0,0),
+ (7,'5',0,0,0,0),
+ (7,'6',0,0,0,0),
+ (7,'7',0,0,0,0),
+ (7,'8',0,0,0,0),
+ (7,'9',0,0,0,0),
+ (6,'10',1,1,1,1),
+ (6,'11',1,1,1,1),
+ (6,'12',1,1,1,1),
+ (6,'13',1,1,1,1),
+ (6,'14',1,1,1,1),
+ (6,'15',1,1,1,1);
+INSERT INTO `grupos_modulos` (`id_del_grupo`,`id_del_modulo`,`s`,`i`,`u`,`d`) VALUES 
+ (6,'16',1,1,1,1);
 /*!40000 ALTER TABLE `grupos_modulos` ENABLE KEYS */;
 
 
@@ -318,11 +359,18 @@ CREATE TABLE `modulos` (
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
 INSERT INTO `modulos` (`id_modulo`,`descripcion`,`ruta`) VALUES 
  (1,'usuarios','index.php/usuarios/lista_usuarios'),
- (2,'grupos','index.php/grupos/lista_grupos'),
- (3,'modulos','index.php/modulo/lista_modulos'),
- (4,'metadata','base metadata'),
- (5,'documentos','basedocumentos'),
- (6,'imagenes','base imagenes');
+ (2,'grupos','index.php/grupo/lista_grupos'),
+ (3,'grupos-modulos','index.php/grupos_modulos/lista_modulos'),
+ (4,'metadata','index.php/metadata/lista_metadata'),
+ (5,'documentos','index.php/documentos/lista_documentos'),
+ (6,'imagenes','index.php/imagenes/lista_imagenes'),
+ (7,'bodega','index.php/bodega/lista_bodega'),
+ (8,'estante','index.php/estantes/lista_estantes'),
+ (9,'cajas','index.php/cajas/lista_cajas'),
+ (10,'folder','index.php/folder/lista_folder'),
+ (12,'estantes','index,php/estantes/lista_estantes'),
+ (13,'usuarios_grupos','index,php/usuarios_grupos/lista_usuarios_grupos'),
+ (14,'modulos','index.php/modulo/ver_modulo');
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
 
@@ -339,6 +387,7 @@ CREATE TABLE `usuarios` (
   `correo` varchar(45) default NULL,
   `password` varchar(45) default NULL,
   `id_del_grupo` int(10) unsigned NOT NULL,
+  `estado` int(1) unsigned NOT NULL,
   PRIMARY KEY  (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -347,11 +396,13 @@ CREATE TABLE `usuarios` (
 --
 
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id_usuario`,`nombre`,`cedula`,`telefono`,`correo`,`password`,`id_del_grupo`) VALUES 
- (1,'aldair','4-774-200','64743533','aldair774@hotmail.com','12345',1),
- (2,'will','4-743-246','63434533','will@hotmail.com','will',5),
- (3,'maximo','4-356-2333','21434533','max@hotmail.com','max',4),
- (4,'ricardo','4-6344-2763','88654533','ricardo@hotmail.com','ricardo',2);
+INSERT INTO `usuarios` (`id_usuario`,`nombre`,`cedula`,`telefono`,`correo`,`password`,`id_del_grupo`,`estado`) VALUES 
+ (1,'aldair','4-774-200','64743533','aldair774@hotmail.com','12345',1,1),
+ (2,'will','4-2453-67','13245','will@horai.fom','will',5,1),
+ (3,'maximo','4-356-2333','21434533','max@hotmail.com','max',4,1),
+ (4,'ricardo','4-6344-2763','88654533','ricardo@hotmail.com','ricardo',2,1),
+ (11,'todo','4-2453-67','13245','will@horai.fom','todo',6,1),
+ (13,'nada','4-2453-67','13245','will@horai.fom','nada',7,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
