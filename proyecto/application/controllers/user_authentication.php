@@ -108,15 +108,11 @@ public function user_login_process()
 
                 $this->load->model('login_database');  
 		        //cargamos los modulos a la variable result
-			    $result = $this->login_database->get_modulos_record_all(); 
-                       
-                $session_data = array(
-						'modulos' => $result
-				);
-				
+			    $result = $this->login_database->get_modulos_record_all();         
+                $session_data = array('modulos' => $result);
 				$this->session->set_userdata('nav', $session_data);
 
-			         // $data['modulos'] = $result;
+			     
 		         
 
                // pasamos los modulos a la pagina admin page
@@ -124,11 +120,10 @@ public function user_login_process()
 			}
 		} 
 		else 
-		{
-			$data = array(
-			'error_message' => 'Invalid Username or Password'
-			);
-			$this->load->view('login_form', $data);
+		{   
+			echo"<script>alert('La contrase\u00f1a del usuario no es correcta.');</script>";
+			
+			$this->load->view('login_form');
 		}
 	}
 }

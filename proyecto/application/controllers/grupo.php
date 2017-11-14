@@ -3,7 +3,7 @@
  * File Name: employee.php
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Usuarios extends CI_Controller
+class Grupo extends CI_Controller
 {
     public function __construct()
     {
@@ -14,13 +14,13 @@ class Usuarios extends CI_Controller
         $this->load->database();
         $this->load->library('form_validation');
         //load the employee model
-        $this->load->model('modulo_usuarios');
+        $this->load->model('modulo_grupos');
     }
     function index()
     {
         
     }
-    public function lista_usuarios()
+    public function lista_grupos()
      {
           //nav bar
           $this->load->model('login_database');  
@@ -33,13 +33,12 @@ class Usuarios extends CI_Controller
 
 
           //cargar los dato del usuario
-          $this->load->model('modulo_usuarios');  
+          $this->load->model('modulo_grupos');  
           //traeme los usuarios
-          $result = $this->modulo_usuarios->get_usuarios_record_all();           
-          $data['usuarios'] = $result;
-
-          //carga vista de usuarios
-          $this->load->view('usuarios/lista_usuarios',$data);
+         $result = $this->modulo_grupos->get_grupos_record_all();           
+          $data['grupos'] = $result;
+          //load the department_view
+          $this->load->view('grupos/lista_grupos',$data);
      }
      public function eliminar($id_usuario)
      {
@@ -49,17 +48,16 @@ class Usuarios extends CI_Controller
           $result = $this->modulo_usuarios->tiene_permiso($modulo,"d"); 
            
           if ($result==true) {
-
             $result = $this->modulo_usuarios->eliminar($id_usuario);
            
             redirect('usuarios/lista_usuarios'); 
           }else{
-           echo"<script>alert('usted no tiene permiso para eliminar');</script>";
+           
            redirect('usuarios/lista_usuarios');
           }
      }
 
-     public function user_registration_show() 
+     public function grupo_registration() 
       {
   
            //nav bar
@@ -71,53 +69,46 @@ class Usuarios extends CI_Controller
           $this->session->set_userdata('nav', $session_data);
 
 
-          $modulo="usuarios";
-          $this->load->model('modulo_usuarios');  
-          $result = $this->modulo_usuarios->tiene_permiso($modulo,"i"); 
+          $modulo="grupos";
+          $this->load->model('modulo_grupos');  
+          $result = $this->modulo_grupos->tiene_permiso($modulo,"i"); 
            
           if ($result==true) {
-              $this->load->view('usuarios/nuevo_usuario');
+              $this->load->view('grupos/nuevo_grupo');
           }else{
-           echo"<script>alert('usted no tiene permiso para insertar nuevo usuario');</script>";
-           redirect('usuarios/lista_usuarios');
+           
+           redirect('grupo/lista_grupos');
           }
         
       }
 
       // Validate and store registration data in database
-      public function new_user_registration() 
+      public function nuevo_grupo() 
       {
         // Check validation for user input in SignUp form
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('cedula', 'Cedula', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('telefono', 'Telefono', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('correo', 'correo', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
+       
         if ($this->form_validation->run() == FALSE) 
         {
-          $this->load->view('nuevo_usuario');
+          $this->load->view('nuevo_grupo');
         } 
         else
-        {   $uno=1;
-            $cero=0;
+        {
             $data = array(
-            'nombre' => $this->input->post('nombre'),
-            'cedula' => $this->input->post('cedula'),
-            'telefono' => $this->input->post('telefono'),
-            'correo' => $this->input->post('correo'),
-            'id_del_grupo' =>$cero,
-            'estado' => $uno,
-            'password' => $this->input->post('password')
+            'nombre_grupo' => $this->input->post('nombre'),
+            'departamento' => $this->input->post('departamento'),
+            
             );
-            $this->load->model('modulo_usuarios');
-            $result = $this->modulo_usuarios->registration_insert($data);
+            $this->load->model('modulo_grupos');
+            $result = $this->modulo_grupos->registration_insert($data);
           if ($result == TRUE) 
           {
-            redirect('usuarios/lista_usuarios'); 
+            redirect('grupo/lista_grupos'); 
           } 
           else 
           {
-            redirect('usuarios/lista_usuarios'); 
+            redirect('grupo/lista_grupos'); 
           }
         }
       }

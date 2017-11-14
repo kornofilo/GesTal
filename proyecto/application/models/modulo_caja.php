@@ -3,17 +3,17 @@
  * File Name: employee_model.php
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class modulo_grupos extends CI_Model
+class modulo_caja extends CI_Model
 {
     function __construct()
     {
         // Call the Model constructor
         parent::__construct();
     }
-    function get_grupos_record_all()
+    function get_caja()
     {
-        
-        $this->db->from('grupos');
+        //$this->db->where('employee_no', $empno);
+        $this->db->from('caja');
         $query = $this->db->get();
         return $query->result();
     }	
@@ -26,10 +26,10 @@ class modulo_grupos extends CI_Model
     public function registration_insert($data) {
     
 
-    $condition = "nombre_grupo =" . "'" . $data['nombre_grupo'] . "'";
+    $condition = "nombre_caja =" . "'" . $data['nombre_caja'] . "'";
     
     
-    $this->db->from('grupos');
+    $this->db->from('caja');
     $this->db->where($condition);
     $this->db->limit(1);
     
@@ -38,7 +38,7 @@ class modulo_grupos extends CI_Model
     {
 
         // Query to insert data in database
-        $this->db->insert('grupos',$data);
+        $this->db->insert('caja',$data);
         if ($this->db->affected_rows() > 0) 
         {
         return true;
@@ -105,5 +105,4 @@ class modulo_grupos extends CI_Model
     }
     
 }
-    
 ?>

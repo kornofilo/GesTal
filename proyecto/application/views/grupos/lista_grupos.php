@@ -32,8 +32,7 @@
                                    <td><?php echo $grupos[$i]->nombre_grupo; ?></td>
 						     <td><?php echo $grupos[$i]->departamento; ?></td>
                                    <td><?php echo "<a href=".base_url("index.php/productos/eliminar")."/".$grupos[$i]->id_grupo.">"." <span class='glyphicon glyphicon-ok'></span></a>" ;?> </td>
-                                   <td><a href="<?php echo base_url('index.php/productos/eliminar'.$grupos[$i]->id_grupo);?>" class="btn btn-danger"  >eliminar</a>
-                                   </td>
+                                   
                               </tr>
                               </tr>
                          <?php } ?>
@@ -41,7 +40,7 @@
                </table>
                <center>
                
-               <a href="<?php echo base_url()?>index.php/productos/producto_registration_show" class="btn btn-info"  >crear nuevo grupo</a>
+               <a href="<?php echo base_url()?>index.php/grupo/grupo_registration" class="btn btn-info"  >crear nuevo grupo</a>
               
                     </center>
           </div>

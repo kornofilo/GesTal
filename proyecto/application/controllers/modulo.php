@@ -1,6 +1,7 @@
 <?php
 /* 
- * File Name: employee.php
+ * File Name: modulos control.php
+ * este controlador se encarga de jode la paciencia y controlar los modulos
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Modulo extends CI_Controller
@@ -13,35 +14,41 @@ class Modulo extends CI_Controller
         $this->load->helper('url');
         $this->load->database();
         $this->load->library('form_validation');
-        //load the employee model
-        $this->load->model('modulo_model');
+        //carga el modulo de modulos
+        $this->load->model('modulo_modulos');
     }
     function index()
     {
         
     }
-    public function lista_modulos()
+    public function ver_modulo()
+    //carga la ver de modulos
      {
-
-      $this->load->model('login_database');  
+          //nav bar
+          $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
                        
           $session_data = array(
             'modulos' => $result
           );
           $this->session->set_userdata('nav', $session_data);
-          //load the department_model
-          $this->load->model('modulo_model');  
-          
-    
-          //call the model function to get the department data
-          $result = $this->modulo_model->get_productos_record_all();           
-          $data['modelos'] = $result;
-          //load the department_view
-          $this->load->view('modulo_view',$data);
 
-          
+
+          //cargar los dato de los modulos
+          $this->load->model('modulo_modulos');  
+          //traeme los los modulos
+          $result = $this->modulo_modulos->get_modulos_record_all();           
+          $data['modulos'] = $result;
+
+          //carga vista de modulos
+          $this->load->view('modulos/ver_modulos',$data);
      }
+    
+
+    
+
+      
+     
     
 }
 ?>

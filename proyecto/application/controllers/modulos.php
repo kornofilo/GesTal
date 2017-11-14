@@ -1,9 +1,10 @@
 <?php
 /* 
- * File Name: employee.php
+ * File Name: modulos control.php
+ * este controlador se encarga de jode la paciencia y controlar los modulos
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Usuarios extends CI_Controller
+class Modulo extends CI_Controller
 {
     public function __construct()
     {
@@ -13,14 +14,15 @@ class Usuarios extends CI_Controller
         $this->load->helper('url');
         $this->load->database();
         $this->load->library('form_validation');
-        //load the employee model
-        $this->load->model('modulo_usuarios');
+        //carga el modulo de modulos
+        $this->load->model('modulo_modulos');
     }
     function index()
     {
         
     }
-    public function lista_usuarios()
+    public function ver_modulo()
+    //carga la ver de modulos
      {
           //nav bar
           $this->load->model('login_database');  
@@ -32,30 +34,29 @@ class Usuarios extends CI_Controller
           $this->session->set_userdata('nav', $session_data);
 
 
-          //cargar los dato del usuario
-          $this->load->model('modulo_usuarios');  
-          //traeme los usuarios
-          $result = $this->modulo_usuarios->get_usuarios_record_all();           
-          $data['usuarios'] = $result;
+          //cargar los dato de los modulos
+          $this->load->model('modulo_modulos');  
+          //traeme los los modulos
+          $result = $this->modulo_modulos->get_modulos_record_all();           
+          $data['modulos'] = $result;
 
-          //carga vista de usuarios
-          $this->load->view('usuarios/lista_usuarios',$data);
+          //carga vista de modulos
+          $this->load->view('modulos/ver_modulos',$data);
      }
      public function eliminar($id_usuario)
      {
           
-          $modulo="usuarios";
-          $this->load->model('modulo_usuarios');  
-          $result = $this->modulo_usuarios->tiene_permiso($modulo,"d"); 
+          $modulo="modulos";
+          $this->load->model('modulo_modulos');  
+          $result = $this->modulo_modulos->tiene_permiso($modulo,"d"); 
            
           if ($result==true) {
-
-            $result = $this->modulo_usuarios->eliminar($id_usuario);
+            $result = $this->modulo_modulos->eliminar($id_usuario);
            
-            redirect('usuarios/lista_usuarios'); 
+            redirect('modulos/ver_modulos'); 
           }else{
-           echo"<script>alert('usted no tiene permiso para eliminar');</script>";
-           redirect('usuarios/lista_usuarios');
+           
+           redirect('modulos/ver_modulos');
           }
      }
 
@@ -71,15 +72,15 @@ class Usuarios extends CI_Controller
           $this->session->set_userdata('nav', $session_data);
 
 
-          $modulo="usuarios";
-          $this->load->model('modulo_usuarios');  
-          $result = $this->modulo_usuarios->tiene_permiso($modulo,"i"); 
+          $modulo="modulos";
+          $this->load->model('modulo_modulos');  
+          $result = $this->modulo_modulos->tiene_permiso($modulo,"i"); 
            
           if ($result==true) {
-              $this->load->view('usuarios/nuevo_usuario');
+              $this->load->view('modulos/nuevo_usuario');
           }else{
-           echo"<script>alert('usted no tiene permiso para insertar nuevo usuario');</script>";
-           redirect('usuarios/lista_usuarios');
+           
+           redirect('modulos/ver_modulos');
           }
         
       }
@@ -93,31 +94,30 @@ class Usuarios extends CI_Controller
         $this->form_validation->set_rules('telefono', 'Telefono', 'trim|required|xss_clean');
         $this->form_validation->set_rules('correo', 'correo', 'trim|required|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('id_del_grupo', 'grupo', 'trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE) 
         {
           $this->load->view('nuevo_usuario');
         } 
         else
-        {   $uno=1;
-            $cero=0;
+        {
             $data = array(
             'nombre' => $this->input->post('nombre'),
             'cedula' => $this->input->post('cedula'),
             'telefono' => $this->input->post('telefono'),
             'correo' => $this->input->post('correo'),
-            'id_del_grupo' =>$cero,
-            'estado' => $uno,
+            'id_del_grupo' => $this->input->post('id_del_grupo'),
             'password' => $this->input->post('password')
             );
-            $this->load->model('modulo_usuarios');
-            $result = $this->modulo_usuarios->registration_insert($data);
+            $this->load->model('modulo_modulos');
+            $result = $this->modulo_modulos->registration_insert($data);
           if ($result == TRUE) 
           {
-            redirect('usuarios/lista_usuarios'); 
+            redirect('modulos/ver_modulos'); 
           } 
           else 
           {
-            redirect('usuarios/lista_usuarios'); 
+            redirect('modulos/ver_modulos'); 
           }
         }
       }

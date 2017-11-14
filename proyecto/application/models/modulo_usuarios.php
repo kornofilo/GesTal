@@ -14,22 +14,27 @@ class Modulo_usuarios extends CI_Model
     {
         //$this->db->where('employee_no', $empno);
         $this->db->from('usuarios');
+        $this->db->where('estado',1);
         $this->db->join('grupos','grupos.id_grupo=usuarios.id_del_grupo');
         $query = $this->db->get();
         return $query->result();
     }	
-   function eliminar($id_usuario)
-    {
-        
-         $this->db->delete('usuarios', array('id_usuario' => $id_usuario));
+   function eliminar($id_usuario){
+         
+         $campos=array(
+                 'estado'=>$this->input->post(0)
+                  );
+        $this->db->where('id_usuario',$id_usuario);
+        $this->db->update('usuarios',$campos);
+        if($this->db->affected_rows()>0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function registration_insert($data) {
-    
-
     $condition = "nombre =" . "'" . $data['nombre'] . "'";
-    
-    
     $this->db->from('usuarios');
     $this->db->where($condition);
     $this->db->limit(1);
@@ -37,7 +42,6 @@ class Modulo_usuarios extends CI_Model
     $query = $this->db->get();
     if ($query->num_rows() == 0) 
     {
-
         // Query to insert data in database
         $this->db->insert('usuarios',$data);
         if ($this->db->affected_rows() > 0) 

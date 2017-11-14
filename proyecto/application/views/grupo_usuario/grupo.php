@@ -9,6 +9,8 @@
 		
 	</head>
 	<body>
+	<?php $id=0;
+          $id=$this->uri->segment(3);?>
 		<div id="main">
 			<div id="login">
 				<h2>Formulario de Registro de nuevo producto</h2>
@@ -17,33 +19,15 @@
 					echo "<div class='error_msg'>";
 					echo validation_errors();
 					echo "</div>";
-					echo form_open('usuarios/new_user_registration');
-
-					echo form_label('nombre: ');
-					
-					echo form_input('nombre');
-					
+					echo form_open('usuario_grupo/actualiza_grupo');
+                    ?>
+                    <input type="hidden" name="id_usuario" class="form-control" required value="<?=$id?>">
+					<?php
 					echo"<br/>";
-					echo form_label('cedula : ');
-					
-					echo form_input('cedula');
-
+					echo form_label('grupo: ');
 					echo"<br/>";
-					echo form_label('telefono: ');
-					
-					echo form_input('telefono');
-
+					echo form_dropdown('id_del_grupo', $grupo);
 					echo"<br/>";
-					echo form_label('correo: ');
-					echo"<br/>";
-					echo form_input('correo');
-
-					echo"<br/>";
-					echo form_label('contraseña: ');
-					echo"<br/>";
-					echo form_input('password');
-
-					
 					echo"<br/>";
 					echo form_submit('submit', 'Sign Up');
 					echo form_close();

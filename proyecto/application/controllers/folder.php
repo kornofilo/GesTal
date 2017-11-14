@@ -3,7 +3,7 @@
  * File Name: employee.php
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Documentos extends CI_Controller
+class Folder extends CI_Controller
 {
     public function __construct()
     {
@@ -14,33 +14,13 @@ class Documentos extends CI_Controller
         $this->load->database();
         $this->load->library('form_validation');
         //load the employee model
-        $this->load->model('modulo_documento');
+        $this->load->model('modulo_folder');
     }
-    public function generar_direccion() 
-      {
-  
-           //nav bar //no se toca
-          $this->load->model('login_database');  
-          $result = $this->login_database->get_modulos_record_all(); 
-                       
-          $session_data = array('modulos' => $result);
-
-          $this->session->set_userdata('nav', $session_data);
-          //
-
-          $modulo="documentos";
-          $this->load->model('modulo_documento');  
-          $result = $this->modulo_documento->tiene_permiso($modulo,"i"); 
-      
-          if ($result==true) {
-              $this->load->view('documentos/nuevo_documento');
-          }else{
-           
-           redirect('documentos/lista_documentos');
-          }
+    function index()
+    {
         
-      }
-    public function lista_documentos()
+    }
+    public function lista_folder()
      {
           //nav bar
           $this->load->model('login_database');  
@@ -53,13 +33,13 @@ class Documentos extends CI_Controller
 
 
           //cargar los dato del usuario
-          $this->load->model('modulo_documento');  
+          $this->load->model('modulo_folder');  
           //traeme los usuarios
-          $result = $this->modulo_documento->get_documento();           
+          $result = $this->modulo_folder->get_folder();           
           $data['usuarios'] = $result;
 
           //carga vista de usuarios
-          $this->load->view('documentos/lista_documentos',$data);
+          $this->load->view('folder/lista_folder',$data);
      }
      public function eliminar($id_usuario)
      {
@@ -78,7 +58,7 @@ class Documentos extends CI_Controller
           }
      }
 
-     public function documento_registration() 
+     public function folder_registration() 
       {
   
            //nav bar //no se toca
@@ -90,15 +70,15 @@ class Documentos extends CI_Controller
           $this->session->set_userdata('nav', $session_data);
           //
 
-          $modulo="documentos";
-          $this->load->model('modulo_documento');  
-          $result = $this->modulo_documento->tiene_permiso($modulo,"i"); 
+          $modulo="folder";
+          $this->load->model('modulo_folder');  
+          $result = $this->modulo_folder->tiene_permiso($modulo,"i"); 
       
           if ($result==true) {
-              $this->load->view('documentos/nuevo_documento');
+              $this->load->view('folder/nuevo_folder');
           }else{
            
-           redirect('documentos/lista_documentos');
+           redirect('folder/lista_folder');
           }
         
       }
@@ -116,7 +96,7 @@ class Documentos extends CI_Controller
         {
           $this->load->view('nuevo_folder');
         } 
-        else
+        else  
         {   $uno=1;
             $data = array(
             'nombre_folder' => $this->input->post('nombre'),
