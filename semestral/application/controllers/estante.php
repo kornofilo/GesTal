@@ -21,7 +21,9 @@ class Estante extends CI_Controller
         
     }
     public function lista_estante()
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
@@ -32,17 +34,23 @@ class Estante extends CI_Controller
           $this->session->set_userdata('nav', $session_data);
 
 
-          //cargar los dato del usuario
+        $modulo="estante";
+          $this->load->model('modulo_usuarios');  
+          $result = $this->modulo_usuarios->tiene_permiso($modulo,"s"); 
+          if ($result==true) {
           $this->load->model('modulo_estante');  
-          //traeme los usuarios
           $result = $this->modulo_estante->get_estante();           
           $data['usuarios'] = $result;
-
-          //carga vista de usuarios
           $this->load->view('estante/lista_estante',$data);
+        }else{
+          $data['usuarios'] = $result;
+          $this->load->view('estante/lista_estante',$data);
+        }
      }
      public function eliminar($id_usuario)
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           
           $modulo="estante";
           $this->load->model('modulo_estante');  
@@ -59,7 +67,9 @@ class Estante extends CI_Controller
      }
 
      public function estante_registration() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
   
            //nav bar //no se toca
           $this->load->model('login_database');  
@@ -75,7 +85,10 @@ class Estante extends CI_Controller
           $result = $this->modulo_estante->tiene_permiso($modulo,"i"); 
       
           if ($result==true) {
-              $this->load->view('estante/nuevo_estante');
+               $this->load->model('modulo_estante');  
+               $bodegas = $this->modulo_estante->trae_bodegas();
+               $data['modulos'] = $bodegas;
+              $this->load->view('estante/nuevo_estante',$data);
           }else{
            
            redirect('estante/lista_estante');
@@ -85,7 +98,9 @@ class Estante extends CI_Controller
       // Campos para validar
       // Validate and store registration data in database
       public function nuevo_estante() 
-      { 
+      { if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
         // Check validation for user input in SignUp form
          
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');

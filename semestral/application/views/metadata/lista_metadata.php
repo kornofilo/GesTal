@@ -18,31 +18,38 @@
           <?php if ($usuarios==false) {
                $this->load->view('no');
               }else{ ?>
-          <center><h2>lista de cajas</h2><center>
+          <center><h2>lista metadata</h2></center>
                <table class="table table-striped table-hover">
                     <thead>
+                      
                          <tr>  
-                              <th>Identificacion de la Caja</th>
-                              <th>Nombre de la Caja</th>
-                              <th>Identificacion del Estante</th>
-                              <th>Identificacion de la Bodega</th>
+                              <th>identificador</th>
+                              <th>descripcion</th>
+                               <th>valor</th>
+                              <th>documento</th>
+                              <th>creador por</th>
+                              
+                              <th>acciones</th>
                          </tr>
                     </thead>
                     <tbody>
                          <?php for ($i = 0; $i < count($usuarios); ++$i) { ?>
                               <tr>
-                                   <td><?php echo ($i+1); ?></td>
-                                   <td><?php echo $usuarios[$i]->nombre_caja; ?></td>
-                                   <td><?php echo $usuarios[$i]->id_de_estante;?></td>
-                                   <td><?php echo $usuarios[$i]->id_de_bodega; ?></td> 
+                                   <td><?php echo $usuarios[$i]->id;?></td>
+                                   <td><?php echo $usuarios[$i]->descripcion; ?></td> 
+                                   <td><?php echo $usuarios[$i]->valor; ?></td>
+                                   <td><?php echo $usuarios[$i]->id_documento; ?></td> 
+                                   <td><?php echo $usuarios[$i]->nombre; ?></td> 
+                                  
+                                   
                               </tr>
                               </tr>
-                         <?php }
-                         } ?>
+                         <?php } }?>
                     </tbody>
                </table>
                <center>
-               <a href="<?php echo base_url()?>index.php/caja/caja_registration" class="btn btn-info"  >crear nueva caja</a>
+               <a href="<?php echo base_url()?>index.php/metadata/registrar_metadata" class="btn btn-info"  >
+               crear nieva descripcion de metadata</a>
 
                     </center>
           </div>

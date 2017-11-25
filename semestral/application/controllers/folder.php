@@ -21,7 +21,9 @@ class Folder extends CI_Controller
         
     }
     public function lista_folder()
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
@@ -42,7 +44,9 @@ class Folder extends CI_Controller
           $this->load->view('folder/lista_folder',$data);
      }
      public function eliminar($id_usuario)
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           
           $modulo="usuarios";
           $this->load->model('modulo_usuarios');  
@@ -59,7 +63,9 @@ class Folder extends CI_Controller
      }
 
      public function folder_registration() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
   
            //nav bar //no se toca
           $this->load->model('login_database');  
@@ -75,7 +81,15 @@ class Folder extends CI_Controller
           $result = $this->modulo_folder->tiene_permiso($modulo,"i"); 
       
           if ($result==true) {
-              $this->load->view('folder/nuevo_folder');
+
+              $this->load->model('modulo_estante'); 
+              $bodegas = $this->modulo_estante->trae_bodegas();
+              $data['bodegas'] = $bodegas;
+              $est = $this->modulo_estante->trae_estantes();
+              $data['estantes'] = $est;
+              $cj = $this->modulo_estante->trae_cajas();
+              $data['cajas'] = $cj;
+              $this->load->view('folder/nuevo_folder',$data);
           }else{
            
            redirect('folder/lista_folder');
@@ -85,7 +99,9 @@ class Folder extends CI_Controller
       // Campos para validar
       // Validate and store registration data in database
       public function nuevo_folder() 
-      { 
+      { if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
         // Check validation for user input in SignUp form
        
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
@@ -96,7 +112,7 @@ class Folder extends CI_Controller
         {
           $this->load->view('nuevo_folder');
         } 
-        else
+        else  
         {   $uno=1;
             $data = array(
             'nombre_folder' => $this->input->post('nombre'),

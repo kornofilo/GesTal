@@ -53,9 +53,35 @@ class Modulo_usuarios extends CI_Model
     return false;
     }
 }
+
+ function editar($id_usuario){
+        $this->db->where('id_usuario',$id_usuario);
+        $this->db->from('usuarios');
+    $query = $this->db->get();
+    return $query->result();
+    }
+
+    function update($id_usuario){
+        $id = $this->input->post('hidden');
+        $campos=array(
+            'correo'=>$this->input->post('nombre'),
+            'cedula'=>$this->input->post('cedula'),
+            'telefono'=>$this->input->post('telefono')
+        );
+        $this->db->where('id_usuario',$id);
+        $this->db->update('usuarios',$campos);
+        if($this->db->affected_rows()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     function tiene_permiso($modulo,$accion){
          $grupo_del_usuario=($this->session->userdata['logged_in']['grupo_del_usuario']);
          $uno=1;
+
         if ($accion=="s") {
             $condition = "id_del_grupo = ".$grupo_del_usuario." and modulos.descripcion= "."'".$modulo."'"." and s=".$uno.";";
             $this->db->from('grupos_modulos');

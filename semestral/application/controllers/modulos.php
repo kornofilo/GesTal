@@ -23,7 +23,9 @@ class Modulo extends CI_Controller
     }
     public function ver_modulo()
     //carga la ver de modulos
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
@@ -44,7 +46,9 @@ class Modulo extends CI_Controller
           $this->load->view('modulos/ver_modulos',$data);
      }
      public function eliminar($id_usuario)
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           
           $modulo="modulos";
           $this->load->model('modulo_modulos');  
@@ -61,7 +65,9 @@ class Modulo extends CI_Controller
      }
 
      public function user_registration_show() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
   
            //nav bar
           $this->load->model('login_database');  
@@ -87,7 +93,9 @@ class Modulo extends CI_Controller
 
       // Validate and store registration data in database
       public function new_user_registration() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
         // Check validation for user input in SignUp form
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
         $this->form_validation->set_rules('cedula', 'Cedula', 'trim|required|xss_clean');

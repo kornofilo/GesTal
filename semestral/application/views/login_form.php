@@ -17,13 +17,13 @@
   <div class="group">
 
     <input type="text" name="username"><span class="highlight"></span><span class="bar"></span>
-    <label>Name</label>
+    <label>correo</label>
     
   </div>
   <div class="group">
 
     <input type="Password" name="password"><span class="highlight"></span><span class="bar"></span>
-    <label>Password</label>
+    <label>contraseña</label>
 
   </div>
 

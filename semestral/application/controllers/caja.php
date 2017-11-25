@@ -21,7 +21,9 @@ class Caja extends CI_Controller
         
     }
     public function lista_caja()
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
@@ -30,36 +32,26 @@ class Caja extends CI_Controller
             'modulos' => $result
           );
           $this->session->set_userdata('nav', $session_data);
-
-
-          //cargar los dato del usuario
+          $modulo="cajas";
+          $this->load->model('modulo_usuarios');  
+          $result = $this->modulo_usuarios->tiene_permiso($modulo,"s"); 
+          if ($result==true) {
           $this->load->model('modulo_caja');  
-          //traeme los usuarios
           $result = $this->modulo_caja->get_caja();           
           $data['usuarios'] = $result;
-
-          //carga vista de usuarios
           $this->load->view('caja/lista_caja',$data);
+        }else{
+          $data['usuarios'] = $result;
+          $this->load->view('caja/lista_caja',$data);
+        }
+
      }
-     public function eliminar($id_usuario)
-     {
-          
-          $modulo="usuarios";
-          $this->load->model('modulo_usuarios');  
-          $result = $this->modulo_usuarios->tiene_permiso($modulo,"d"); 
-           
-          if ($result==true) {
-            $result = $this->modulo_usuarios->eliminar($id_usuario);
-           
-            redirect('usuarios/lista_usuarios'); 
-          }else{
-           
-           redirect('usuarios/lista_usuarios');
-          }
-     }
+     
 
      public function caja_registration() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
   
            //nav bar //no se toca
           $this->load->model('login_database');  
@@ -75,7 +67,13 @@ class Caja extends CI_Controller
           $result = $this->modulo_caja->tiene_permiso($modulo,"i"); 
            
           if ($result==true) {
-              $this->load->view('caja/nueva_caja');
+              $this->load->model('modulo_estante'); 
+              $bodegas = $this->modulo_estante->trae_bodegas();
+              $data['bodegas'] = $bodegas;
+              $est = $this->modulo_estante->trae_estantes();
+              $data['estantes'] = $est;
+
+              $this->load->view('caja/nueva_caja',$data);
           }else{  
              
            redirect('caja/lista_caja');
@@ -85,7 +83,9 @@ class Caja extends CI_Controller
       // Campos para validar
       // Validate and store registration data in database
       public function nueva_caja() 
-      { 
+      { if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
         // Check validation for user input in SignUp form
         $uno=1;
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');

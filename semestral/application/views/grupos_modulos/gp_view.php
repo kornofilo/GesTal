@@ -16,32 +16,44 @@
 		<div id="page-content-wrapper">
 		<div id="main">
 			<div id="login">
-				<h2>Formulario de Registro de nueva caja</h2>
-				<hr/>
-				<?php
+			
+			    <h3>seleciones los permisos a tener este grupo</h3>
+
+			    <?php
 					echo "<div class='error_msg'>";
 					echo validation_errors();
 					echo "</div>";
-					echo form_open('caja/nueva_caja');
-
-					echo form_label('Nombre de la Caja:');
-					echo"<br/>";
-					echo form_input('nombre');
+					
+					echo form_open('grupos_modulos/insertar_permisos');
+					echo form_dropdown('id_modulo', $modulos);
                     echo"<br/>";
-					echo form_label('pertenece a Estante:');
+                    ?><input type="hidden" name="id_del_grupo" class="form-control" required value="<?=$id_del_grupo?>">
+                    <?php
+					echo form_label('selecionar: ');
 					echo"<br/>";
-					echo form_dropdown('idestante', $estantes);
+					echo form_checkbox('selecionar');
 					
-				    echo"<br/>";
-					echo form_label('pertenece a la Bodega:');
 					echo"<br/>";
-					echo form_dropdown('idbodega', $bodegas);
-					
+					echo form_label('inserar : ');
+					echo"<br/>";
+					echo form_checkbox('inserar');
 
+					echo"<br/>";
+					echo form_label('actualizar: ');
+					echo"<br/>";
+					echo form_checkbox('actualizar');
+
+					echo"<br/>";
+					echo form_label('eliminar: ');
+					echo"<br/>";
+					echo form_checkbox('eliminar');
+
+					
+					echo"<br/>";
 					echo form_submit('submit', 'Sign Up');
 					echo form_close();
 				?>
-				<a href="<?php echo base_url()."index.php/caja/lista_caja" ?> ">regresar</a>
+			
 			</div>
 		</div>
 	</div>

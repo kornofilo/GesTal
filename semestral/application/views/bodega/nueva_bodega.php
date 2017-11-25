@@ -1,6 +1,7 @@
 	<html>
 	<?php
 		$this->load->view('nav');
+		$this->load->view('close');
 	?>
 	<head>
 		<title>Registration Form</title>

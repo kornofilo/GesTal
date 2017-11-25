@@ -16,32 +16,31 @@
 		<div id="page-content-wrapper">
 		<div id="main">
 			<div id="login">
-				<h2>Formulario de Registro de nueva caja</h2>
+				<h2>Formulario de Registro de nuevo folder</h2>
 				<hr/>
 				<?php
 					echo "<div class='error_msg'>";
 					echo validation_errors();
 					echo "</div>";
-					echo form_open('caja/nueva_caja');
+					echo form_open('documentos/nuevo_doc');
 
-					echo form_label('Nombre de la Caja:');
+					echo form_label('Nombre del documento:');
 					echo"<br/>";
 					echo form_input('nombre');
-                    echo"<br/>";
-					echo form_label('pertenece a Estante:');
-					echo"<br/>";
-					echo form_dropdown('idestante', $estantes);
-					
-				    echo"<br/>";
-					echo form_label('pertenece a la Bodega:');
-					echo"<br/>";
-					echo form_dropdown('idbodega', $bodegas);
-					
 
-					echo form_submit('submit', 'Sign Up');
+					echo form_label('fecha del documento:');
+					echo"<br/>";
+					echo form_input('fecha');
+
+					echo form_label('tipo:');
+					echo"<br/>";
+					echo form_input('tipo');
+
+			
+					echo form_submit('submit', 'insertar');
 					echo form_close();
 				?>
-				<a href="<?php echo base_url()."index.php/caja/lista_caja" ?> ">regresar</a>
+				<a href="<?php echo base_url()."index.php/documentos/lista_documentos" ?> ">regresar</a>
 			</div>
 		</div>
 	</div>

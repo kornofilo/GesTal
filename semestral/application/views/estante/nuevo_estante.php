@@ -29,9 +29,10 @@
 					echo"<br/>";
 					echo form_input('nombre');
 
-					echo form_label('Identificador de la Bodega:');
+					echo form_label('pertenece a bodega:');
 					echo"<br/>";
-					echo form_input('idbodega');
+					echo form_dropdown('idbodega', $modulos);
+					
 				
 					echo form_submit('submit', 'Sign Up');
 					echo form_close();

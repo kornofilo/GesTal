@@ -29,17 +29,21 @@
 					echo form_label('Nombre del Folder:');
 					echo"<br/>";
 					echo form_input('nombre');
-
-					echo form_label('Ingrese el Identificador del Estante:');
+                    echo"<br/>";
+					echo form_label('pertenece al  Estante:');
 					echo"<br/>";
-					echo form_input('idestante');
-
-					echo form_label('Ingrese el Identificador de la Caja:');
+					echo form_dropdown('idestante', $estantes);
 					echo"<br/>";
-					echo form_input('idcaja');
 
-					echo form_label('Ingrese el Identificador de la Bodega:');
-					echo form_input('idbodega');
+					echo form_label('pertenece a la Caja:');
+					echo"<br/>";
+					echo form_dropdown('idcaja', $cajas);
+					echo"<br/>";
+
+					echo form_label('pertenece a la Bodega:');
+					echo"<br/>";
+					echo form_dropdown('idbodega', $bodegas);
+					
 				
 					echo form_submit('submit', 'Sign Up');
 					echo form_close();

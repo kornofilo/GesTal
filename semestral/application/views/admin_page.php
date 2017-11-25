@@ -36,7 +36,7 @@ header("location: login");
 				echo "<br/>";
 				echo "<br/>";
 				echo "<br/>";
-				echo "Bienvenido de Vuelta <b id='welcome'><i>" . $username . "</i>!</b>";
+				echo "Bienvenido de Vuelta <b id='welcome'><i>" .$email . "</i>!</b>";
 				echo "<br/>";
 				echo "<br/>";
 				echo "Pagina del Administrador";	
@@ -45,7 +45,7 @@ header("location: login");
 				echo "Tu Identificacion es :" . $id;
 				echo "<br/>";
 				echo "<br/>";
-				echo "Tu Correo es : " . $email;
+				echo "Tu Correo es : " .  $username;
 				echo "<br/>";
 				?>
 			<b id="logout"><a href="logout">Cerrar Sesion</a></b>

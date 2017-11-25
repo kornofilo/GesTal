@@ -14,13 +14,13 @@
 #sidebar-wrapper {
     margin-left: -150px;
     left: 70px;
-    width: 150px;
+    width: 160px;
     background: #222;
     position: fixed;
     height: 100%;
     z-index: 10000;
     transition: all .4s ease 0s;
-    overflow: scroll;
+    
 }
 
 .sidebar-nav {

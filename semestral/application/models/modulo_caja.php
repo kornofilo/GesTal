@@ -17,11 +17,7 @@ class modulo_caja extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }	
-   function eliminar($id_usuario)
-    {
-        
-         $this->db->delete('usuarios', array('id_usuario' => $id_usuario));
-    }
+   
 
     public function registration_insert($data) {
     

@@ -21,7 +21,9 @@ class Grupo extends CI_Controller
         
     }
     public function lista_grupos()
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
@@ -30,20 +32,29 @@ class Grupo extends CI_Controller
             'modulos' => $result
           );
           $this->session->set_userdata('nav', $session_data);
-
-
-          //cargar los dato del usuario
+ 
+          $this->load->model('modulo_usuarios'); 
+          $modulo="grupos"; 
+          $r = $this->modulo_usuarios->tiene_permiso($modulo,"s"); 
+           
+          if ($r==true) {
+            $data['ver']=1;
+          }else{
+            $data['ver']=0;
+          }
           $this->load->model('modulo_grupos');  
-          //traeme los usuarios
-         $result = $this->modulo_grupos->get_grupos_record_all();           
+
+          $result = $this->modulo_grupos->get_grupos_record_all();           
           $data['grupos'] = $result;
-          //load the department_view
+        
           $this->load->view('grupos/lista_grupos',$data);
      }
      public function eliminar($id_usuario)
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           
-          $modulo="usuarios";
+          $modulo="grupos";
           $this->load->model('modulo_usuarios');  
           $result = $this->modulo_usuarios->tiene_permiso($modulo,"d"); 
            
@@ -58,7 +69,9 @@ class Grupo extends CI_Controller
      }
 
      public function grupo_registration() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
   
            //nav bar
           $this->load->model('login_database');  
@@ -84,7 +97,9 @@ class Grupo extends CI_Controller
 
       // Validate and store registration data in database
       public function nuevo_grupo() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
         // Check validation for user input in SignUp form
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
         $this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');

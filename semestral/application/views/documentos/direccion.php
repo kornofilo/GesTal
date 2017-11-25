@@ -15,16 +15,14 @@
                 <div class="container">
           <div class="row">
           <div class="col-lg-12 col-sm-12">
-          <?php if ($usuarios==false) {
-               $this->load->view('no');
-              }else{ ?>
-          <center><h2>lista de cajas</h2><center>
+          <center><h2>Direccion</h2><center>
                <table class="table table-striped table-hover">
                     <thead>
                          <tr>  
-                              <th>Identificacion de la Caja</th>
-                              <th>Nombre de la Caja</th>
+                              <th>numero</th>
+                              <th>Nombre del Folder</th>
                               <th>Identificacion del Estante</th>
+                              <th>Identificacion de la Caja</th>
                               <th>Identificacion de la Bodega</th>
                          </tr>
                     </thead>
@@ -32,17 +30,35 @@
                          <?php for ($i = 0; $i < count($usuarios); ++$i) { ?>
                               <tr>
                                    <td><?php echo ($i+1); ?></td>
-                                   <td><?php echo $usuarios[$i]->nombre_caja; ?></td>
-                                   <td><?php echo $usuarios[$i]->id_de_estante;?></td>
-                                   <td><?php echo $usuarios[$i]->id_de_bodega; ?></td> 
+                                   <td><?php echo $usuarios[$i]->nombre_folder; ?></td>
+                                   <td><?php echo $usuarios[$i]->id_de_estante; ?></td>
+                                   <td><?php echo $usuarios[$i]->id_de_caja; ?></td>
+                                   <td><?php echo $usuarios[$i]->id_de_bodega; ?></td>   
                               </tr>
                               </tr>
-                         <?php }
-                         } ?>
+                         <?php } ?>
                     </tbody>
                </table>
-               <center>
-               <a href="<?php echo base_url()?>index.php/caja/caja_registration" class="btn btn-info"  >crear nueva caja</a>
+               <center><h4>cambiar folder</h4>
+               <?php $id=0;
+                     $id=$this->uri->segment(3);
+                    
+
+
+                 
+                   echo form_open('documentos/actualizar_dir');
+
+                       ?><input type="hidden" name="hidden" class="form-control" required value="<?=$id?>">
+                        <?php
+                         echo"<br/>";
+                         echo form_dropdown('id_folder',$fl);
+                         
+                         echo form_submit('submit', 'Sign Up');
+                         echo form_close();
+                    
+                    
+
+               ?> 
 
                     </center>
           </div>

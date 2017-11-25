@@ -1,10 +1,11 @@
 <head>
+
 <?php $modulos = ($this->session->userdata['nav']['modulos']);?>
 	<title>Administracion</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/nav.css">
 </head>
 <body>
-
+<?php $this->load->view('close');?>
 <div id="wrapper" class="active">  
 <!-- Sidebar -->
 <div id="sidebar-wrapper">

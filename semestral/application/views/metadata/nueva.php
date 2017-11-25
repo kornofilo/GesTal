@@ -16,32 +16,22 @@
 		<div id="page-content-wrapper">
 		<div id="main">
 			<div id="login">
-				<h2>Formulario de Registro de nueva caja</h2>
+				<h2>Formulario de Registro nuevo cmapo metadata</h2>
 				<hr/>
 				<?php
 					echo "<div class='error_msg'>";
 					echo validation_errors();
 					echo "</div>";
-					echo form_open('caja/nueva_caja');
+					echo form_open('metadata/nueva_metadata');
 
-					echo form_label('Nombre de la Caja:');
+					echo form_label('nobre de nievo tipo de metadata:');
 					echo"<br/>";
 					echo form_input('nombre');
-                    echo"<br/>";
-					echo form_label('pertenece a Estante:');
-					echo"<br/>";
-					echo form_dropdown('idestante', $estantes);
 					
-				    echo"<br/>";
-					echo form_label('pertenece a la Bodega:');
-					echo"<br/>";
-					echo form_dropdown('idbodega', $bodegas);
-					
-
-					echo form_submit('submit', 'Sign Up');
+					echo form_submit('submit', 'enviar');
 					echo form_close();
 				?>
-				<a href="<?php echo base_url()."index.php/caja/lista_caja" ?> ">regresar</a>
+				<a href="<?php echo base_url()."index.php/bodega/lista_bodega" ?> ">regresar</a>
 			</div>
 		</div>
 	</div>

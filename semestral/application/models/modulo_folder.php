@@ -14,7 +14,11 @@ class modulo_folder extends CI_Model
     {
         //$this->db->where('employee_no', $empno);
         $this->db->from('folder');
+        $this->db->join('bodega','bodega.id_bodega=folder.id_de_bodega');
+        $this->db->join('estante','estante.id_estante=folder.id_de_estante');
+        $this->db->join('caja','caja.id_caja=folder.id_de_caja');
         $query = $this->db->get();
+
         return $query->result();
     }	
    function eliminar($id_usuario)

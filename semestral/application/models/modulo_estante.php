@@ -20,6 +20,42 @@ class modulo_estante extends CI_Model
         
          $this->db->delete('usuarios', array('id_usuario' => $id_usuario));
     }
+    public function trae_bodegas(){
+         $this->db->from('bodega');
+        $result = $this->db->get();
+        $return = array();
+        if($result->num_rows() > 0) {
+            foreach($result->result_array() as $row) {
+                $return[$row['id_bodega']] = $row['nombre_bodega'];
+            }
+        }
+
+            return $return;
+    }
+    public function trae_estantes(){
+         $this->db->from('estante');
+        $result = $this->db->get();
+        $return = array();
+        if($result->num_rows() > 0) {
+            foreach($result->result_array() as $row) {
+                $return[$row['id_estante']] = $row['nombre_estante'];
+            }
+        }
+
+            return $return;
+    }
+    public function trae_cajas(){
+         $this->db->from('caja');
+        $result = $this->db->get();
+        $return = array();
+        if($result->num_rows() > 0) {
+            foreach($result->result_array() as $row) {
+                $return[$row['id_caja']] = $row['nombre_caja'];
+            }
+        }
+
+            return $return;
+    }
 
     public function registration_insert($data) {
     

@@ -34,7 +34,9 @@ public function user_registration_show()
 
 // Validate and store registration data in database
 public function new_user_registration() 
-{
+{if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
 	// Check validation for user input in SignUp form
 	$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
 	$this->form_validation->set_rules('email_value', 'Email', 'trim|required|xss_clean');
@@ -76,7 +78,11 @@ public function user_login_process()
 	{
 		if(isset($this->session->userdata['logged_in']))
 		{
-			$this->load->view('admin_page');
+		  $this->load->model('login_database');  
+	      $result = $this->login_database->get_modulos_record_all();         
+	      $session_data = array('modulos' => $result);
+	      $this->session->set_userdata('nav', $session_data);
+		  $this->load->view('admin_page');
 		}
 		else
 		{
@@ -107,28 +113,19 @@ public function user_login_process()
 				$this->session->set_userdata('logged_in', $session_data);
 
                 $this->load->model('login_database');  
-		        //cargamos los modulos a la variable result
-			    $result = $this->login_database->get_modulos_record_all(); 
-                       
-                $session_data = array(
-						'modulos' => $result
-				);
-				
+		     
+			    $result = $this->login_database->get_modulos_record_all();         
+                $session_data = array('modulos' => $result);
 				$this->session->set_userdata('nav', $session_data);
-
-			         // $data['modulos'] = $result;
-		         
-
-               // pasamos los modulos a la pagina admin page
+        
 				$this->load->view('admin_page');
 			}
 		} 
 		else 
-		{
-			$data = array(
-			'error_message' => 'Invalid Username or Password'
-			);
-			$this->load->view('login_form', $data);
+		{   
+
+			$this->load->view('login_form');
+			
 		}
 	}
 }
@@ -139,9 +136,14 @@ public function logout()
 
 	// Removing session data
 	$sess_array = array(
-	'username' => ''
+	'username' => '',
+	'email' => '',
+	'id'=>'',
+	'grupo_del_usuario'=>'',
+	'modulos'=>''
 	);
 	$this->session->unset_userdata('logged_in', $sess_array);
+	
 	$data['message_display'] = 'Successfully Logout';
 	$this->load->view('login_form', $data);
 }

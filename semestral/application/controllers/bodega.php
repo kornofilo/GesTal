@@ -21,7 +21,9 @@ class Bodega extends CI_Controller
         
     }
     public function lista_bodega()
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 
@@ -31,19 +33,25 @@ class Bodega extends CI_Controller
           );
           $this->session->set_userdata('nav', $session_data);
 
-
-          //cargar los dato del usuario
+          $modulo="bodega";
+          $this->load->model('modulo_usuarios');  
+          $result = $this->modulo_usuarios->tiene_permiso($modulo,"s"); 
+          if ($result==true) {
           $this->load->model('modulo_bodega');  
-          //traeme los usuarios
           $result = $this->modulo_bodega->get_bodega();           
           $data['usuarios'] = $result;
-
-          //carga vista de usuarios
           $this->load->view('bodega/lista_bodega',$data);
+          }else{
+          $data['usuarios'] = $result;
+          $this->load->view('bodega/lista_bodega',$data);
+          }
+
      }
      
      public function bodega_registration() 
-      {
+      {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
   
            //nav bar //no se toca
           $this->load->model('login_database');  
@@ -69,7 +77,9 @@ class Bodega extends CI_Controller
       // Campos para validar
       // Validate and store registration data in database
       public function nueva_bodega() 
-      { 
+      { if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
         // Check validation for user input in SignUp form
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
         $this->form_validation->set_rules('direccion', 'Direccion', 'trim|required|xss_clean');

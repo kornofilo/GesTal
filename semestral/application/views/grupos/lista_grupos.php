@@ -16,6 +16,10 @@
           <div class="container">
           <div class="row">
           <div class="col-lg-12 col-sm-12">
+          <?php if ($ver==0) {
+               $this->load->view('no');
+              }else{ ?>
+               <center><h2>lista de grupos</h2><center>
                <table class="table table-striped table-hover">
                     <thead>
                          <tr>  
@@ -31,13 +35,14 @@
                                    <td><?php echo ($i+1); ?></td>
                                    <td><?php echo $grupos[$i]->nombre_grupo; ?></td>
 						     <td><?php echo $grupos[$i]->departamento; ?></td>
-                                   <td><?php echo "<a href=".base_url("index.php/productos/eliminar")."/".$grupos[$i]->id_grupo.">"." <span class='glyphicon glyphicon-ok'></span></a>" ;?> </td>
+                                   <td><a href="<?php echo base_url('index.php');?>" class="btn btn-info"  >actualizar</a> </td>
                                    
                               </tr>
                               </tr>
                          <?php } ?>
                     </tbody>
                </table>
+                <?php  }?>
                <center>
                
                <a href="<?php echo base_url()?>index.php/grupo/grupo_registration" class="btn btn-info"  >crear nuevo grupo</a>

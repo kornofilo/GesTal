@@ -15,6 +15,7 @@
                 <div class="container">
           <div class="row">
           <div class="col-lg-12 col-sm-12">
+          <center><h2>lista de modulos</h2></center>
                <table class="table table-striped table-hover">
                     <thead>
                          <tr>  
@@ -33,7 +34,7 @@
                                    <td><?php echo $modulos[$i]->descripcion; ?></td>
                                    <td><?php echo $modulos[$i]->ruta; ?></td>
                                    
-                                   <td><a href="<?php echo base_url('index.php/modulos/eliminar/'.$modulos[$i]->id_modulo);?>" class="btn btn-danger"  >eliminar</a> </td>
+                                   
                                    
                               </tr>
                               </tr>

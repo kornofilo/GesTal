@@ -23,7 +23,9 @@ class Modulo extends CI_Controller
     }
     public function ver_modulo()
     //carga la ver de modulos
-     {
+     {if (!(isset($this->session->userdata['logged_in']))) {
+          redirect('user_authentication/user_login_process'); 
+           }
           //nav bar
           $this->load->model('login_database');  
           $result = $this->login_database->get_modulos_record_all(); 

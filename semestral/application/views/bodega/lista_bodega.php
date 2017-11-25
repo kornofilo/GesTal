@@ -1,10 +1,12 @@
 <html>
 <!-- instanciando variables de secion -->
 
-                 <?php     
-                 $this->load->view('nav');
-                 ?>
-                 <title>inicio</title>
+    
+     <?php     
+     $this->load->view('nav');
+     ?>
+     <title>inicio</title>
+     
      <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
      <!--link the bootstrap css file-->
      <link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>">
@@ -15,6 +17,10 @@
                 <div class="container">
           <div class="row">
           <div class="col-lg-12 col-sm-12">
+          <?php if ($usuarios==false) {
+               $this->load->view('no');
+              }else{ ?>
+          <center><h2>lista de bodegas</h2><center>
                <table class="table table-striped table-hover">
                     <thead>
                          <tr>  
@@ -33,11 +39,12 @@
                                    
                               </tr>
                               </tr>
-                         <?php } ?>
+                         <?php } 
+                         }?>
                     </tbody>
                </table>
                <center>
-               <a href="<?php echo base_url()?>index.php/bodega/bodega_registration" class="btn btn-info"  >crear nuevo usuario</a>
+               <a href="<?php echo base_url()?>index.php/bodega/bodega_registration" class="btn btn-info"  >crear nueva bodega</a>
 
                     </center>
           </div>

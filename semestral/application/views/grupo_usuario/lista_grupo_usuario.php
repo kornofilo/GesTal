@@ -1,5 +1,5 @@
 <html>
-<!-- instanciando variables de secion -->
+
 
                  <?php     
                  $this->load->view('nav');
@@ -15,36 +15,37 @@
                 <div class="container">
           <div class="row">
           <div class="col-lg-12 col-sm-12">
-          <?php if ($usuarios==false) {
-               $this->load->view('no');
-              }else{ ?>
-          <center><h2>lista de cajas</h2><center>
+          <center><h2>lista de usuarios por grupo</h2></center>
+          <a href="<?php echo base_url('index.php/usuario_grupo/lista_usuarios_grupos_sin');?>" class="btn btn-danger"  >usuarios sin grupo asignado</a> 
+          <br>
+          <a href="<?php echo base_url('index.php/usuario_grupo/lista_usuarios_grupos');?>" class="btn btn-danger"  >ver todos los usuarios </a> 
+          <?php if ($usuarios == FALSE) : ?>
+                <p class="alert alert-danger"><a href="javascript:void(0)" class="close"></a><b>Alerta !</b > no hay usuarios sin asignar grupo <p>
+          <?php else : ?>
+
                <table class="table table-striped table-hover">
                     <thead>
                          <tr>  
-                              <th>Identificacion de la Caja</th>
-                              <th>Nombre de la Caja</th>
-                              <th>Identificacion del Estante</th>
-                              <th>Identificacion de la Bodega</th>
+                              <th>numero</th>
+                              <th>nombre</th>
+                              <th>grupo</th>
+                              <th>acciones</th>
                          </tr>
                     </thead>
                     <tbody>
                          <?php for ($i = 0; $i < count($usuarios); ++$i) { ?>
                               <tr>
                                    <td><?php echo ($i+1); ?></td>
-                                   <td><?php echo $usuarios[$i]->nombre_caja; ?></td>
-                                   <td><?php echo $usuarios[$i]->id_de_estante;?></td>
-                                   <td><?php echo $usuarios[$i]->id_de_bodega; ?></td> 
+                                   <td><?php echo $usuarios[$i]->nombre; ?></td>
+                                   <td><?php echo $usuarios[$i]->nombre_grupo;?></td>
+                                   <td><a href="<?php echo base_url('index.php/usuario_grupo/show_grupo/'.$usuarios[$i]->id_usuario);?>" class="btn btn-danger"  >asignar grupo</a> </td>
+                                   
                               </tr>
                               </tr>
-                         <?php }
-                         } ?>
+                         <?php } ?>
                     </tbody>
                </table>
-               <center>
-               <a href="<?php echo base_url()?>index.php/caja/caja_registration" class="btn btn-info"  >crear nueva caja</a>
-
-                    </center>
+              <?php endif; ?>
           </div>
           </div>
           </div>
